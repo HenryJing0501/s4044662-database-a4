@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Booking</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="booking.js" defer></script>
+</head>
+<body>
+  <header class="site-header">
+    <h1>Create Booking</h1>
+  </header>
+
+  <main class="page">
+    <section class="panel">
+      <h2>Selected Listing</h2>
+      <div id="message" class="status-message">Loading listing...</div>
+      <div id="listingDetails" class="listing-details" hidden>
+        <p><strong>Listing ID:</strong> <span id="listingIdText"></span></p>
+        <p><strong>Listing name:</strong> <span id="listingNameText"></span></p>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Booking Form</h2>
+
+      <form id="bookingForm" class="booking-form" hidden>
+        <input type="hidden" id="listing_id" name="listing_id">
+        <input type="hidden" id="listing_name" name="listing_name">
+
+        <div class="form-group">
+          <label for="startDate">Booking start date</label>
+          <input type="date" id="startDate" name="startDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="endDate">Booking end date</label>
+          <input type="date" id="endDate" name="endDate" required>
+        </div>
+
+        <div class="form-group">
+          <label for="clientName">Client name</label>
+          <input type="text" id="clientName" name="clientName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="daytimePhone">Daytime phone number</label>
+          <input type="tel" id="daytimePhone" name="daytimePhone">
+        </div>
+
+        <div class="form-group">
+          <label for="mobilePhone">Mobile number</label>
+          <input type="tel" id="mobilePhone" name="mobilePhone" required>
+        </div>
+
+        <div class="form-group">
+          <label for="postalAddress">Postal address</label>
+          <textarea id="postalAddress" name="postalAddress" rows="3" required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="residentialAddress">Residential address</label>
+          <textarea id="residentialAddress" name="residentialAddress" rows="3" required></textarea>
+        </div>
+
+        <button type="submit">Create Booking</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>
