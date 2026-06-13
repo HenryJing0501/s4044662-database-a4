@@ -13,9 +13,23 @@
 
   <main class="page">
     <section class="panel">
-      <p class="confirmation-message">Booking successfully created.</p>
+      <p id="confirmationMessage" class="confirmation-message">Booking successfully created.</p>
       <p><a href="index.html">Back to search page</a></p>
     </section>
   </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const status = params.get("status");
+    const message = params.get("message");
+    const confirmationMessage = document.getElementById("confirmationMessage");
+
+    if (status === "failure") {
+      confirmationMessage.textContent = message || "Booking failed.";
+      confirmationMessage.classList.add("failure-message");
+    } else {
+      confirmationMessage.textContent = message || "Booking successfully created.";
+    }
+  </script>
 </body>
 </html>

@@ -29,11 +29,15 @@ async function loadRandomListings() {
 
 async function searchListings() {
   const location = document.getElementById("location").value.trim();
+  const startDate = document.getElementById("startDate").value;
+  const endDate = document.getElementById("endDate").value;
   const propertyType = document.getElementById("propertyType").value;
   const bedrooms = document.getElementById("bedrooms").value;
 
   const params = new URLSearchParams();
   params.append("location", location);
+  params.append("startDate", startDate);
+  params.append("endDate", endDate);
 
   if (propertyType) {
     params.append("property_type", propertyType);
@@ -54,18 +58,21 @@ async function searchListings() {
       throw new Error(listings.error || "Could not search listings.");
     }
 
-    renderListings(listings);
+    renderListings(listings, {
+      startDate: startDate,
+      endDate: endDate
+    });
   } catch (error) {
     showStatus(error.message);
   }
 }
 
-function renderListings(listings) {
+function renderListings(listings, selectedDates) {
   const results = document.getElementById("results");
   clearResults();
 
   if (!listings || listings.length === 0) {
-    showStatus("No listings found.");
+    showStatus("No listings match your search criteria.");
     return;
   }
 
@@ -77,7 +84,15 @@ function renderListings(listings) {
 
     const title = document.createElement("h3");
     const link = document.createElement("a");
-    link.href = "booking.html?listing_id=" + encodeURIComponent(listing._id);
+    const linkParams = new URLSearchParams();
+    linkParams.append("listing_id", listing._id);
+
+    if (selectedDates && selectedDates.startDate && selectedDates.endDate) {
+      linkParams.append("startDate", selectedDates.startDate);
+      linkParams.append("endDate", selectedDates.endDate);
+    }
+
+    link.href = "booking.html?" + linkParams.toString();
     link.textContent = listing.name || "Unnamed listing";
     title.appendChild(link);
 

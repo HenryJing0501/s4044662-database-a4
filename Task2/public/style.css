@@ -46,7 +46,7 @@ body {
 }
 
 .search-form {
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
   align-items: end;
 }
 
@@ -133,6 +133,10 @@ a {
 .confirmation-message {
   font-size: 20px;
   font-weight: bold;
+}
+
+.failure-message {
+  color: #b42318;
 }
 
 @media (max-width: 800px) {

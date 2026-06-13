@@ -1,12 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
   const params = new URLSearchParams(window.location.search);
   const listingId = params.get("listing_id");
+  const startDate = params.get("startDate");
+  const endDate = params.get("endDate");
   const bookingForm = document.getElementById("bookingForm");
 
   if (!listingId) {
     showMessage("No listing_id was provided.");
     return;
   }
+
+  document.getElementById("startDate").value = startDate || "";
+  document.getElementById("endDate").value = endDate || "";
 
   loadListing(listingId);
 
@@ -69,12 +74,19 @@ async function createBooking() {
       throw new Error(result.error || "Could not create booking.");
     }
 
-    window.location.href = "confirmation.html";
+    goToConfirmation("success", "Booking successfully created.");
   } catch (error) {
-    showMessage(error.message);
+    goToConfirmation("failure", error.message);
   }
 }
 
 function showMessage(message) {
   document.getElementById("message").textContent = message;
+}
+
+function goToConfirmation(status, message) {
+  const params = new URLSearchParams();
+  params.append("status", status);
+  params.append("message", message);
+  window.location.href = "confirmation.html?" + params.toString();
 }
